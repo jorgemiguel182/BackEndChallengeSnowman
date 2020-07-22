@@ -1,7 +1,7 @@
 FROM python:3.7
 
 # set work directory
-WORKDIR /usr/src/app/
+    WORKDIR /usr/src/app/
 
 # set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -13,6 +13,8 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+RUN chmod +x entrypoint.sh
 
 # Django service
 EXPOSE 8000
