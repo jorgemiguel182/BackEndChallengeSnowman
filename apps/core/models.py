@@ -5,7 +5,7 @@ from django.db import models
 class TbPicture(models.Model):
     id = models.AutoField(primary_key=True)
     picture = models.ImageField()
-    tourist_spot = models.ForeignKey('TbTouristSpot', models.DO_NOTHING)
+    # tourist_spot = models.ForeignKey('TbTouristSpot', models.DO_NOTHING)
     
     class Meta:
         db_table = 'TB_PICTURE'
@@ -34,7 +34,7 @@ class TbUserFavorite(models.Model):
 class TbTouristSpot(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=400)
-    picture = models.ForeignKey(TbPicture, models.DO_NOTHING)
+    pictures = models.ManyToManyField(TbPicture)
     geo_location = models.CharField(max_length=100)
     category = models.ForeignKey(TbCategory, models.DO_NOTHING)
     
