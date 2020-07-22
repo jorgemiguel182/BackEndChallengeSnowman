@@ -3,19 +3,26 @@ version: '3.3'
 services:
   db:
     image: postgres
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - 6543:5432
+    expose:
+      - 5432
   web:
     build:
       context: .
-    command: gunicorn SnowManAPI.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    environment:
+      - PYTHONUNBUFFERED=1
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - DB_NAME=postgres
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/app/
     env_file:
       - ./.env
     ports:
       - 8000:8000
+    depends_on:
+      - db
