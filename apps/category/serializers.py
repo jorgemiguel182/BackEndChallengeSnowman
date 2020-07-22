@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import TbCategory
+from ..core.models import TbCategory
 
 
 class CategorySerializer(serializers.ModelSerializer):

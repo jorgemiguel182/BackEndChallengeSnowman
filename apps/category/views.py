@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from ..core.models import TbCategory
-from ..core.serializers import CategorySerializer
+from .serializers import CategorySerializer
 
 
 class CategoryView(viewsets.ModelViewSet):

@@ -21,4 +21,5 @@ app_name = "core"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/category', include('apps.category.urls')),
+    path('api/tourist-spot/', include('apps.tourist_spot.urls')),
 ]
