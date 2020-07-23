@@ -12,20 +12,13 @@ class PictureSerializer(serializers.ModelSerializer):
 
 
 class TouristSpotSerializer(serializers.ModelSerializer):
-    pictures = PictureSerializer(many=True)
+    # pictures = PictureSerializer(many=True, read_only=True)
 
     class Meta:
         model = TbTouristSpot
         fields = [
             'name',
-            'pictures',
+            # 'pictures',
             'geo_location',
             'category'
         ]
-
-    def create(self, validated_data):
-        images = validated_data.pop('pictures')
-        spots = TbTouristSpot.objects.create(**validated_data)
-        for i in images:
-            TbPicture.objects.create(TbTouristSpot=images, **i)
-        return spots
