@@ -6,22 +6,23 @@ from ..core.models import TbTouristSpot, TbPicture
 
 
 class PictureSerializer(serializers.ModelSerializer):
-    # user = PrimaryKeyRelatedField(1,2,3)
-
     class Meta:
         model = TbPicture
         fields = [
-            'picture'
+            'picture',
         ]
 
     # def save(self):
 
+
 class TouristSpotSerializer(serializers.ModelSerializer):
-    pictures = PictureSerializer(many=True, read_only=True)
+    # pictures = serializers.RelatedField(read_only=True)
+    pictures = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = TbTouristSpot
         fields = [
+            'id',
             'name',
             'pictures',
             'geo_location',
