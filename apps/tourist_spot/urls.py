@@ -9,6 +9,6 @@ from ..tourist_spot.views import TouristSpotDetail, TouristSpotList
 
 urlpatterns = [
     path('', TouristSpotList.as_view()),
-    path('(?P<name>.+)', TouristSpotList.as_view()),
+    path('<str:name>', TouristSpotList.as_view()),
     path('<int:pk>', TouristSpotDetail.as_view()),
 ]

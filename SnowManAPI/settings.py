@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'apps.core',
     'apps.category',
+    'apps.tourist_spot',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,9 @@ STATIC_URL = '/static/'
 #     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 #     'PAGE_SIZE': 10
 # }
+REST_FRAMEWORK = {
+'DEFAULT_PERMISSION_CLASSES': (
+        []
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}

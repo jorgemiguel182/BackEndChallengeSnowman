@@ -3,7 +3,7 @@
 import os
 import sys
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "SnowManAPI.settings"
+# os.environ["DJANGO_SETTINGS_MODULE"] = "SnowManAPI.settings"
 
 
 def main():

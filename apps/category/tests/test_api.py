@@ -5,7 +5,6 @@
 # from rest_framework import status
 # from rest_framework.test import APITestCase
 #
-# from SnowManAPI.apps.core.models import TbCategory
 #
 # print('1111111')
 # class CategoryTest(APITestCase):
@@ -15,11 +14,12 @@
 #         """
 #         Garantindo a criação de uma categoria
 #         """
-#         url = reverse('category')
+#         url = reverse('categ')
 #         data = {
 #             'name': 'Praça A'
 #         }
 #         response = self.client.post(url, data, format='json')
 #         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+#         from SnowManAPI.apps.core.models import TbCategory
 #         self.assertEqual(TbCategory.objects.count(), 1)
 #         self.assertEqual(TbCategory.objects.get().name, 'Praça A')
