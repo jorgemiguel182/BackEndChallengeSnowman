@@ -1,23 +1,22 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
-from rest_framework.relations import PrimaryKeyRelatedField
-
 from ..core.models import TbTouristSpot, TbPicture
 
 
 class PictureSerializer(serializers.ModelSerializer):
+    tourist_spot_id = serializers.IntegerField()
+    picture = serializers.ImageField(max_length=None, allow_empty_file=True, use_url=True)
+
     class Meta:
         model = TbPicture
         fields = [
+            'id',
             'picture',
+            'tourist_spot_id'
         ]
-
-    # def save(self):
 
 
 class TouristSpotSerializer(serializers.ModelSerializer):
-    # pictures = serializers.RelatedField(read_only=True)
-    pictures = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    pictures = PictureSerializer(many=True, read_only=True)
 
     class Meta:
         model = TbTouristSpot
