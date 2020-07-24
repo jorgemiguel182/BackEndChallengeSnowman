@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/category', include('apps.category.urls')),
     path('api/tourist-spot/', include('apps.tourist_spot.urls')),
+    path('api/user-favorites/', include('apps.favorite.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

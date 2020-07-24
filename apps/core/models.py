@@ -27,11 +27,15 @@ class TbCategory(models.Model):
 
 class TbUserFavorite(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, models.DO_NOTHING)
-    tourist_spot = models.ForeignKey('TbTouristSpot', models.DO_NOTHING)
+    user = models.ForeignKey(User, models.CASCADE)
+    tourist_spot = models.ForeignKey('TbTouristSpot', models.CASCADE)
     
     class Meta:
         db_table = 'TB_USER_FAVORITE'
+        unique_together = ['user', 'tourist_spot']
+
+    def __str__(self):
+        return str(self.user.id)
     
     
 class TbTouristSpot(models.Model):

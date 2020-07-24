@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.category',
     'apps.tourist_spot',
+    'apps.favorite',
 ]
 
 MIDDLEWARE = [
