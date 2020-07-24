@@ -10,5 +10,5 @@ class CategoryTest(TestCase):
         TbCategory.objects.create(name="Categoria 2")
 
     def test_category_single(self):
-        category = TbCategory.objects.get(pk=1)
+        category = TbCategory.objects.filter().first()
         self.assertEquals(category.name, 'Categoria 1')
