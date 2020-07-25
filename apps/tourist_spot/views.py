@@ -1,5 +1,5 @@
 from django.http import Http404
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -13,6 +13,8 @@ class TouristSpotList(APIView):
     GET /?name=STRING - Search Tourist Spots by name
     POST - Create a new Tourist Spot
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self, request, format=None):
         tourist_spot = TbTouristSpot.objects.all()
         name = self.request.query_params.get('name')
@@ -35,6 +37,8 @@ class TouristSpotDetail(APIView):
     PUT + /id - Update a Tourist Spot
     DELETE + /id - Delete a Tourist Spot
     """
+    permission_classes = [permissions.IsAuthenticated]
+
     def get_object(self, pk):
         try:
             return TbTouristSpot.objects.get(pk=pk)
@@ -66,6 +70,8 @@ class TouristSpotPicturesList(APIView):
     POST - Register a new Picture to a Tourist Spots
     DELETE + /id_picture - Delete a Picture
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get_object(self, id_tourist_point):
         try:
             TbTouristSpot.objects.get(pk=id_tourist_point)
@@ -91,6 +97,8 @@ class TouristSpotPictureDelete(APIView):
     """
     DELETE - Delete a Picture
     """
+    permission_classes = [permissions.IsAuthenticated]
+
     def get_object(self, id_picture):
         try:
             return TbPicture.objects.get(pk=id_picture)

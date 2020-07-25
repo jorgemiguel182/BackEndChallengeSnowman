@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+
 app_name = "core"
 
 urlpatterns = [
@@ -25,6 +26,9 @@ urlpatterns = [
     path('api/category', include('apps.category.urls')),
     path('api/tourist-spot/', include('apps.tourist_spot.urls')),
     path('api/user-favorites/', include('apps.favorite.urls')),
+    path('api/auth/', include('apps.auth_user.urls')),
+
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

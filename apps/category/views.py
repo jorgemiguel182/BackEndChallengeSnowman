@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 from ..core.models import TbCategory
 from .serializers import CategorySerializer
@@ -12,5 +12,6 @@ class CategoryView(viewsets.ModelViewSet):
     PUT + /id - Update a category
     DELETE + /id - Delete a category
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = TbCategory.objects.all()
     serializer_class = CategorySerializer
