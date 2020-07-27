@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'apps.tourist_spot',
     'apps.favorite',
     'apps.auth_user',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -147,4 +148,17 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
+
+# DRF-YASG SETTINGS
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'oauth2': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'tokenUrl': 'http://127.0.0.1:8000/api/auth/token'
+
+        }
+    },
 }
