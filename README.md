@@ -1,6 +1,8 @@
 # BackEndChallengeSnowman
 
-> <a href="https://gitlab.com/snowman-labs/backend-challenge"> Link do desafio </a> 
+> <p> <a href="https://gitlab.com/snowman-labs/backend-challenge"> Link do desafio </a> </p> 
+> <p> <a href="https://github.com/jorgemiguel182/BackEndChallengeSnowman"> Link do repositório </a> </p> 
+> <p> <a href="#"> Link da aplicação no ar ****</a> </p> 
 
 
 **Tecnologias usadas**
@@ -15,66 +17,63 @@
 ## Table of Contents 
 
 - [Installation](#installation)
-- [Features](#features)
-- [Contributing](#contributing)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
-
-
----
-
-## Example (Optional)
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
+- [Tests](#tests)
+- [Auth](#auth)
+- [Swagger](#swagger)
+- [Deploy](#deploy)
 
 ---
 
 ## Installation
 
-- All the `code` required to get started
-- Images of what it should look like
+- All the `code` required to configure locally and in docker
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/fvcproductions/SOMEREPO`
-
-### Setup
-
-- If you want more syntax highlighting, format your code like this:
-
-> update and install this package first
-
+- Clone this repo to your local machine 
 ```shell
-$ brew update
-$ brew install fvcproductions
+$> git clone https://github.com/jorgemiguel182/BackEndChallengeSnowman
+$> cd BackEndChallengeSnowman
 ```
 
-> now install npm and bower packages
+### Setup Locally and Docker (Tested on Windows)
+
+#####  Local
+- In the cloned project directory, with python, pip and virtualenv installed, create a virtual environment:
 
 ```shell
-$ npm install
-$ bower install
+$ virtualenv venv
+$ cd venv/Scripts
+$ activate
+$ cd ..
+$ cd ..
+$(venv) pip install -r requirements.txt
+```
+- Create a file .env in root project directory to store your local variables.
+- Run Migrations
+```shell
+$ python manage.py migrate
 ```
 
-- For all the possible languages that support syntax highlithing on GitHub (which is basically all of them), refer <a href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml" target="_blank">here</a>.
+
+##### Docker - COM PROBLEMAS
+- In the cloned project directory, with docker installed, first create a file .env in root project directory, and after
+```shell
+$ docker-compose up --build -d
+```
+
+- To stop docker instances
+
+```shell
+$ docker-compose down -v
+```
 
 ---
 
-## Features
-## Usage (Optional)
-## Documentation (Optional)
-## Tests (Optional)
+## Tests
+## Auth
+## Documentation Swagger
+## Deploy
 
 - Going into more detail on code and technologies used
 - I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
@@ -149,3 +148,21 @@ Reach out to me at one of the following places!
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - Copyright 2015 © <a href="http://fvcproductions.com" target="_blank">FVCproductions</a>.
+
+
+---
+
+## Example (Optional)
+
+```javascript
+// code away!
+
+let generateProject = project => {
+  let code = [];
+  for (let js = 0; js < project.length; js++) {
+    code.push(js);
+  }
+};
+```
+
+---

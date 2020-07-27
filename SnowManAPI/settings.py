@@ -84,7 +84,9 @@ WSGI_APPLICATION = 'SnowManAPI.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DATABASES = {
+DB = os.environ.get("DB_NAME", None)
+if DB:
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.environ.get("POSTGRES_NAME", 'snowAPI'),
@@ -93,7 +95,18 @@ DATABASES = {
             'HOST': os.environ.get("POSTGRES_HOST", 'localhost'),
             'PORT': os.environ.get("POSTGRES_PORT", '5432'),
         }
-}
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'sqlite3.db',
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -4,7 +4,7 @@ FROM python:3.7
     WORKDIR /usr/src/app/
 
 # set environment variables
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
 # install dependencies
 RUN pip install --upgrade pip
