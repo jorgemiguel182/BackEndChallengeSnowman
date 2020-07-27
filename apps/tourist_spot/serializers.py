@@ -4,7 +4,7 @@ from ..core.models import TbTouristSpot, TbPicture
 
 class PictureSerializer(serializers.ModelSerializer):
     tourist_spot_id = serializers.IntegerField()
-    picture = serializers.ImageField(max_length=None, allow_empty_file=True, use_url=True)
+    picture = serializers.ImageField(max_length=None, use_url=True)
 
     class Meta:
         model = TbPicture

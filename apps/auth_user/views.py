@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,6 +13,13 @@ class UserCreate(APIView):
     """
     permission_classes = [permissions.AllowAny]
 
+    @swagger_auto_schema(
+        request_body=UserSerializer,
+        responses={
+            '200': 'Ok',
+            '400': "Bad Request"
+        },
+    )
     def post(self, request, format='json'):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():

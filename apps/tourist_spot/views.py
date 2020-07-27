@@ -1,4 +1,6 @@
 from django.http import Http404
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,6 +17,14 @@ class TouristSpotList(APIView):
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    name = openapi.Parameter('name', openapi.IN_QUERY, description="name", type=openapi.TYPE_STRING)
+
+    @swagger_auto_schema(
+        manual_parameters=[name],
+        responses={'200': 'Ok', '400': "Bad Request"},
+        operation_description='GET - List of registered Tourist Spots + pictures (pictures is read/download only ) '
+                              '\n GET /?name=STRING - Search Tourist Spots by name',
+    )
     def get(self, request, format=None):
         tourist_spot = TbTouristSpot.objects.all()
         name = self.request.query_params.get('name')
@@ -23,6 +33,11 @@ class TouristSpotList(APIView):
         serializer = TouristSpotSerializer(tourist_spot, many=True, context={"request": request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(
+        request_body=TouristSpotSerializer,
+        responses={'201': 'Created', '400': "Bad Request"},
+        operation_description='POST - Create a new Tourist Spot',
+    )
     def post(self, request, format=None):
         serializer = TouristSpotSerializer(data=request.data)
         if serializer.is_valid():
@@ -45,11 +60,20 @@ class TouristSpotDetail(APIView):
         except TbTouristSpot.DoesNotExist:
             raise Http404
 
+    @swagger_auto_schema(
+        responses={'200': 'Ok', '400': "Bad Request"},
+        operation_description='GET + /id - Get a Tourist Spot + pictures (pictures is read/download only)',
+    )
     def get(self, request, pk, format=None):
         tourist_spot = self.get_object(pk)
         serializer = TouristSpotSerializer(tourist_spot, context={"request": request})
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        request_body=TouristSpotSerializer,
+        responses={'200': 'Ok', '400': "Bad Request"},
+        operation_description='PUT + /id - Update a Tourist Spot',
+    )
     def put(self, request, pk, format=None):
         tourist_spot = self.get_object(pk)
         serializer = TouristSpotSerializer(tourist_spot, data=request.data)
@@ -58,6 +82,10 @@ class TouristSpotDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger_auto_schema(
+        responses={'204': 'No Content', '400': "Bad Request"},
+        operation_description='GET + /id - Get a Tourist Spot + pictures (pictures is read/download only)',
+    )
     def delete(self, request, pk, format=None):
         tourist_spot = self.get_object(pk)
         tourist_spot.delete()
@@ -79,11 +107,20 @@ class TouristSpotPicturesList(APIView):
         except TbTouristSpot.DoesNotExist:
             raise Http404
 
+    @swagger_auto_schema(
+        responses={'200': 'Ok', '400': "Bad Request"},
+        operation_description='GET - List of registered Pictures of a Tourist Spot',
+    )
     def get(self, request, id_tourist_point, format=None):
         pictures = self.get_object(id_tourist_point)
         serializer = PictureSerializer(pictures, many=True, context={"request": request})
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        request_body=PictureSerializer,
+        responses={'201': 'Created', '400': "Bad Request"},
+        operation_description='POST - Register a new Picture to a Tourist Spots',
+    )
     def post(self, request, id_tourist_point, format=None):
         request.data['tourist_spot_id'] = id_tourist_point
         serializer = PictureSerializer(data=request.data)
@@ -105,6 +142,10 @@ class TouristSpotPictureDelete(APIView):
         except TbPicture.DoesNotExist:
             raise Http404
 
+    @swagger_auto_schema(
+        responses={'204': 'No Content', '400': "Bad Request"},
+        operation_description='DELETE + /id_picture- Delete a Picture',
+    )
     def delete(self, request, id_tourist_point, id_picture, format=None):
         picture = self.get_object(id_picture)
         picture.delete()

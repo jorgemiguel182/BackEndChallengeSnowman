@@ -153,7 +153,7 @@ REST_FRAMEWORK = {
 # DRF-YASG SETTINGS
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
-        'oauth2': {
+        'apiKey': {
             'type': 'apiKey',
             'name': 'Authorization',
             'in': 'header',
