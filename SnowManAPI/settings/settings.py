@@ -84,30 +84,18 @@ WSGI_APPLICATION = 'SnowManAPI.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DB = os.environ.get("DB_NAME", None)
-if DB:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get("POSTGRES_NAME", 'dd7avacvt5ies9'),
-            'USER': os.environ.get("POSTGRES_USER", 'jdtnukzaeuklra'),
-            'PASSWORD': os.environ.get("POSTGRES_PASSWORD",
-                                       'de18b803cc2652602c9a719e02a4a2655d71b37a682fd17436b8cdf6dc38de07'),
-            'HOST': os.environ.get("POSTGRES_HOST", 'ec2-50-19-26-235.compute-1.amazonaws.com'),
-            'PORT': os.environ.get("POSTGRES_PORT", '5432'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("POSTGRES_NAME", 'dd7avacvt5ies9'),
+        'USER': os.environ.get("POSTGRES_USER", 'jdtnukzaeuklra'),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD",
+                                   'de18b803cc2652602c9a719e02a4a2655d71b37a682fd17436b8cdf6dc38de07'),
+        'HOST': os.environ.get("POSTGRES_HOST", 'ec2-50-19-26-235.compute-1.amazonaws.com'),
+        'PORT': os.environ.get("POSTGRES_PORT", '5432'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'sqlite3.db',
-            'USER': '',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
-        }
-    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
