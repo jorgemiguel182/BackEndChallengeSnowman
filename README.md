@@ -1,7 +1,6 @@
 # BackEndChallengeSnowman
 
 > <p> <a href="https://gitlab.com/snowman-labs/backend-challenge"> Link do desafio </a> </p> 
-> <p> <a href="https://github.com/jorgemiguel182/BackEndChallengeSnowman"> Link do repositório </a> </p> 
 > <p> <a href="#"> Link da aplicação no ar ****</a> </p> 
 
 
@@ -79,7 +78,7 @@ $ docker-compose down -v
 
 ## Tests
 - Run the tests to make sure everything is ok!
-- After installation run this command
+- After installation, run this command
 ```shell
 $ python manage.py test apps
 ```

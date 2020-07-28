@@ -29,7 +29,7 @@ SECRET_KEY = 'j*)=4)ad5tsvt0sfzf4*b106@s4bdsiydx(-t+-_y)4xb*2#g3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['snowmanapi.herokuapp.com', '*']
 
 
 # Application definition
