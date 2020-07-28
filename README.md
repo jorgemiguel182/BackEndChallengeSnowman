@@ -54,11 +54,11 @@ $(venv) pip install -r requirements.txt
 - Create a file .env in root project directory to store your local variables.
 - Run Migrations
 ```shell
-$ python manage.py migrate
+$ python manage.py migrate --settings SnowManAPI.settings.local
 ```
 - Start server
 ```shell
-$ python manage.py runserver
+$ python manage.py runserver --settings SnowManAPI.settings.local
 ```
 - Enjoy!
 
@@ -80,7 +80,7 @@ $ docker-compose down -v
 - Run the tests to make sure everything is ok!
 - After installation, run this command
 ```shell
-$ python manage.py test apps
+$ python manage.py test apps --settings SnowManAPI.settings.local
 ```
 
 
