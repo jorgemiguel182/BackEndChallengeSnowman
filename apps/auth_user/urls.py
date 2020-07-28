@@ -1,9 +1,8 @@
 from django.urls import path
-from rest_framework.authtoken import views
 
-from apps.auth_user.views import UserCreate
+from apps.auth_user.views import UserCreate, ObtainAuthToken
 
 urlpatterns = [
-    path('token', views.obtain_auth_token),
+    path('token', ObtainAuthToken.as_view()),
     path('new', UserCreate.as_view()),
 ]

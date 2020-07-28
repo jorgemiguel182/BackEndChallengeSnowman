@@ -54,11 +54,11 @@ $(venv) pip install -r requirements.txt
 - Create a file .env in root project directory to store your local variables.
 - Run Migrations
 ```shell
-$ python manage.py migrate --settings SnowManAPI.settings.local
+$(venv) python manage.py migrate --settings SnowManAPI.settings.local
 ```
 - Start server
 ```shell
-$ python manage.py runserver --settings SnowManAPI.settings.local
+$(venv) python manage.py runserver --settings SnowManAPI.settings.local
 ```
 - Enjoy!
 
