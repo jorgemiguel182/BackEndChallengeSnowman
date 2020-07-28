@@ -5,6 +5,7 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.tourist_spot.utils import search_tourist_spots_in_radius
 from ..core.models import TbTouristSpot, TbPicture
 from .serializers import TouristSpotSerializer, PictureSerializer
 
@@ -150,3 +151,39 @@ class TouristSpotPictureDelete(APIView):
         picture = self.get_object(id_picture)
         picture.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TouristSpotBy5KMRadius(APIView):
+    """
+    GET + ?address=STRING & city=STRING & state=STRING & lat=STRING & long=STRING
+        - Will return a list of tourist spots within a 5km radius
+    """
+    permission_classes = [permissions.AllowAny]
+
+    address = openapi.Parameter('address', openapi.IN_QUERY, description="name", type=openapi.TYPE_STRING)
+    city = openapi.Parameter('city', openapi.IN_QUERY, description="city", type=openapi.TYPE_STRING)
+    state = openapi.Parameter('state', openapi.IN_QUERY, description="state", type=openapi.TYPE_STRING)
+    lat = openapi.Parameter('lat', openapi.IN_QUERY, description="lat", type=openapi.TYPE_STRING)
+    long = openapi.Parameter('long', openapi.IN_QUERY, description="long", type=openapi.TYPE_STRING)
+
+    @swagger_auto_schema(
+        manual_parameters=[address, city, state, lat, long],
+        responses={'200': 'Ok', '400': "Bad Request"},
+        operation_description='GET + ?address=STRING & city=STRING & state=STRING & lat=STRING & long=STRING '
+                              '\n - Will return a list of tourist spots within a 5km radius',
+    )
+    def get(self, request, format=None):
+        address = self.request.query_params.get('address')
+        city = self.request.query_params.get('city')
+        state = self.request.query_params.get('state')
+        lat = self.request.query_params.get('lat')
+        long = self.request.query_params.get('long')
+
+        tourist_spots = search_tourist_spots_in_radius(distance=6,
+                                                       address=address,
+                                                       city=city,
+                                                       state=state,
+                                                       lat=lat,
+                                                       long=long)
+        serializer = TouristSpotSerializer(tourist_spots, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)

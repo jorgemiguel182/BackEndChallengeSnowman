@@ -17,6 +17,8 @@ class PictureSerializer(serializers.ModelSerializer):
 
 class TouristSpotSerializer(serializers.ModelSerializer):
     pictures = PictureSerializer(many=True, read_only=True)
+    # lat = serializers.CharField(max_length=50, required=False, allow_blank=False, allow_null=True)
+    # long = serializers.CharField(max_length=50, required=False, allow_blank=False, allow_null=True)
 
     class Meta:
         model = TbTouristSpot
@@ -24,6 +26,10 @@ class TouristSpotSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'pictures',
-            'geo_location',
+            'address',
+            'state',
+            'country',
+            # 'lat',
+            # 'long',
             'category'
         ]

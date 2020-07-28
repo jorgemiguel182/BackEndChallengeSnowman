@@ -1,9 +1,7 @@
+import geocoder
+from decouple import config
 from django.contrib.auth.models import User
 from django.db import models
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
 
 
 class TbPicture(models.Model):
@@ -44,18 +42,26 @@ class TbUserFavorite(models.Model):
     
 class TbTouristSpot(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=400)
-    geo_location = models.CharField(max_length=100)
+    name = models.CharField(max_length=400, unique=True)
     category = models.ForeignKey(TbCategory, models.DO_NOTHING)
-    
+    address = models.CharField(max_length=250, null=True)
+    state = models.CharField(max_length=50, null=True)
+    country = models.CharField(max_length=50, null=True)
+    lat = models.CharField(max_length=50, null=True, blank=False)
+    long = models.CharField(max_length=50, null=True, blank=False)
+
     class Meta:
         db_table = 'TB_TOURIST_SPOT'
         
     def __str__(self):
         return self.name
 
-#
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def create_auth_token(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         Token.objects.create(user=instance)
+    def save(self, *args, **kwargs):
+        api_key = config('GOOGLE_MAPS_KEY', None)
+        if (not self.lat and not self.long) and (self.address and self.state and self.country and api_key):
+            v_address = str(self.address) + ', ' + str(self.state) + ', ' + str(self.country)
+            g = geocoder.google(v_address, key=api_key)
+            if g.json:
+                self.lat = g.json['lat']
+                self.long = g.json['lng']
+        super(TbTouristSpot, self).save(*args, **kwargs)
