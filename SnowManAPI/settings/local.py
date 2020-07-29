@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.favorite',
     'apps.auth_user',
     'drf_yasg',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -132,11 +133,48 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+USE_S3 = os.getenv('USE_S3', config('USE_S3', None))
+
+if USE_S3:
+    # aws settings
+    print('ENTREI S3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', config('AWS_ACCESS_KEY_ID', None))
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', config('AWS_SECRET_ACCESS_KEY', None))
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME', config('AWS_STORAGE_BUCKET_NAME', None))
+    AWS_DEFAULT_ACL = 'none'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+
+    # s3 static settings
+    AWS_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'SnowManAPI.storage_backends.StaticStorage'
+
+    # s3 public media settings
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'SnowManAPI.storage_backends.StaticStorage'
+
+else:
+    STATIC_URL = '/staticfiles/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+MEDIA_URL = '/mediafiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+
+
+
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # DRF - Django Rest Framework settings
 REST_FRAMEWORK = {
