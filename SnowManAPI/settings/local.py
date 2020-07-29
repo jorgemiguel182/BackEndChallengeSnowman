@@ -137,7 +137,6 @@ USE_S3 = os.getenv('USE_S3', config('USE_S3', None))
 
 if USE_S3:
     # aws settings
-    print('ENTREI S3 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', config('AWS_ACCESS_KEY_ID', None))
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', config('AWS_SECRET_ACCESS_KEY', None))
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME', config('AWS_STORAGE_BUCKET_NAME', None))
@@ -163,14 +162,6 @@ else:
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-
-
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
-#
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # DRF - Django Rest Framework settings
 REST_FRAMEWORK = {
