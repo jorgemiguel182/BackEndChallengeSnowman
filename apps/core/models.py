@@ -1,5 +1,4 @@
 import os
-
 import geocoder
 from decouple import config
 from django.contrib.auth.models import User
@@ -24,7 +23,6 @@ class TbCategory(models.Model):
     
     class Meta:
         db_table = 'TB_CATEGORY'
-        
         
     def __str__(self):
         return self.name

@@ -108,5 +108,6 @@ You must use the token in the HTTP Authorization header like this "Authorization
     - http://127.0.0.1:8000/swagger/
 ## Deploy
 
+https://devcenter.heroku.com/articles/getting-started-with-python
 git push heroku master
 heroku run python manage.py migrate
