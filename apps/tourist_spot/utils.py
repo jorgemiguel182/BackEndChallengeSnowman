@@ -1,3 +1,5 @@
+import os
+
 import geocoder
 from decouple import config
 from django.db.models import Q
@@ -41,7 +43,7 @@ def search_tourist_spots_in_radius(distance, address, city, state, lat, long):
 
     if address: # Checks if there is at least the address
 
-        api_key = config('GOOGLE_MAPS_KEY', None)
+        api_key = os.environ.get("API_KEY_GOOGLE_MAPS", config('GOOGLE_MAPS_KEY', None))
 
         # Validates the existence of the google key
         if api_key:

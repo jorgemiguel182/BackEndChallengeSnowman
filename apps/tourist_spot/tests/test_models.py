@@ -9,7 +9,8 @@ class TouristPointModelsTest(TestCase):
     def setUp(self):
         user = User.objects.create(password='test@123', username='teste_api', email='teste@teste.com')
         category = TbCategory.objects.create(name="Categoria 1")
-        v_tourist_spot = TbTouristSpot.objects.create(name="Teste1", geo_location="123", category=category)
+        v_tourist_spot = TbTouristSpot.objects.create(name="Teste1", address="Rua tal, n50", state='MG',
+                                                      category=category)
         TbUserFavorite.objects.create(tourist_spot=v_tourist_spot, user=user)
 
     def test_category_single(self):
