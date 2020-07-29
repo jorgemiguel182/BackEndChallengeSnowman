@@ -49,7 +49,7 @@ $(venv) cd ..
 ```
 - Install dependencies
 ```shell
-$(venv) pip install -r requirements.txt
+$(venv) pip install -r requirements_local.txt
 ```
 - Create a file .env in root project directory to store your local variables.
 - Run Migrations
@@ -80,7 +80,7 @@ $ docker-compose down -v
 - Run the tests to make sure everything is ok!
 - After installation, run this command
 ```shell
-$ python manage.py test apps --settings SnowManAPI.settings.local
+$(venv) python manage.py test apps --settings SnowManAPI.settings.local
 ```
 
 
@@ -99,17 +99,19 @@ You must use the token in the HTTP Authorization header like this "Authorization
     - Method: POST
     - Data {"username": "STRING","password": "STRING"}
 
-
-
-
-
 ## Swagger Documentation
 - Access the link
     - http://127.0.0.1:8000/swagger/
 ## Deploy
-
-https://devcenter.heroku.com/articles/getting-started-with-python
-git push heroku master
-heroku run python manage.py migrate
-heroku run python manage.py collectstatic
-heroku run mkdir static
+- To deploy to Heroku, I used the following manual> https://devcenter.heroku.com/articles/getting-started-with-python
+- After making local changes
+```shell
+$(venv) git add .
+$(venv) git commit -m "DESCRIPTION"
+$(venv) git push heroku master
+```
+- Run migrate and collecstatic
+```shell
+$(venv) heroku run python manage.py migrate
+$(venv) heroku run python manage.py collectstatic
+```
