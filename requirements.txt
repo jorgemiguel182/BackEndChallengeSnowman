@@ -10,3 +10,4 @@ drf-yasg==1.17.1
 geocoder==1.38.1
 geopy==2.0.0
 gunicorn
+whitenoise==5.1.0
