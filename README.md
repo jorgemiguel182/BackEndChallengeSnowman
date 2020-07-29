@@ -111,3 +111,4 @@ You must use the token in the HTTP Authorization header like this "Authorization
 https://devcenter.heroku.com/articles/getting-started-with-python
 git push heroku master
 heroku run python manage.py migrate
+heroku run python manage.py collectstatic
