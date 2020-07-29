@@ -1,3 +1,5 @@
+from copy import copy
+
 from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -123,8 +125,9 @@ class TouristSpotPicturesList(APIView):
         operation_description='POST - Register a new Picture to a Tourist Spots',
     )
     def post(self, request, id_tourist_point, format=None):
-        request.data['tourist_spot_id'] = id_tourist_point
-        serializer = PictureSerializer(data=request.data)
+        cp_request = request.data.copy()
+        cp_request['tourist_spot_id'] = id_tourist_point
+        serializer = PictureSerializer(data=cp_request)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
