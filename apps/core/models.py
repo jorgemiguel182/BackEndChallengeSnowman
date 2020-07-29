@@ -1,3 +1,5 @@
+import os
+
 import geocoder
 from decouple import config
 from django.contrib.auth.models import User
@@ -18,10 +20,11 @@ class TbPicture(models.Model):
 
 class TbCategory(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=400)
+    name = models.CharField(max_length=400, unique=True)
     
     class Meta:
         db_table = 'TB_CATEGORY'
+        
         
     def __str__(self):
         return self.name
@@ -57,7 +60,7 @@ class TbTouristSpot(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        api_key = config('GOOGLE_MAPS_KEY', None)
+        api_key = os.environ.get("API_KEY_GOOGLE_MAPS", config('GOOGLE_MAPS_KEY', None))
         if (not self.lat and not self.long) and (self.address and self.state and self.country and api_key):
             v_address = str(self.address) + ', ' + str(self.state) + ', ' + str(self.country)
             g = geocoder.google(v_address, key=api_key)

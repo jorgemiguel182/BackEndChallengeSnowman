@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j*)=4)ad5tsvt0sfzf4*b106@s4bdsiydx(-t+-_y)4xb*2#g3'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -87,15 +87,13 @@ WSGI_APPLICATION = 'SnowManAPI.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("POSTGRES_NAME", 'dd7avacvt5ies9'),
-        'USER': os.environ.get("POSTGRES_USER", 'jdtnukzaeuklra'),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD",
-                                   'de18b803cc2652602c9a719e02a4a2655d71b37a682fd17436b8cdf6dc38de07'),
-        'HOST': os.environ.get("POSTGRES_HOST", 'ec2-50-19-26-235.compute-1.amazonaws.com'),
-        'PORT': os.environ.get("POSTGRES_PORT", '5432'),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASS"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -164,3 +162,5 @@ SWAGGER_SETTINGS = {
         }
     },
 }
+
+# Google Maps API Key
