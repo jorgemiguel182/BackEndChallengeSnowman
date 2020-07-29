@@ -1,1 +1,1 @@
-web: gunicorn SnowManAPI.wsgi
+web: gunicorn SnowManAPI.wsgi --log-file -
