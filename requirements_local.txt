@@ -5,7 +5,7 @@ python-decouple==3.3
 psycopg2==2.8.5
 pytz==2020.1
 sqlparse==0.3.1
-Pillow==7.2.0
+Pillow==9.0.0
 drf-yasg==1.17.1
 geocoder==1.38.1
 geopy==2.0.0
